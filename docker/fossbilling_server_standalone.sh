@@ -1,13 +1,16 @@
 #!/bin/bash
 
-if [ -z "$1" ]; then
-    echo "Usage: fossbilling_server_standalone.sh <port>"
+# this script assumes you only want to run 1 fossbilling server instance simultaneously
+
+if [ -z "$2" ]; then
+    echo "Usage: fossbilling_server_standalone.sh <host_port> <container_port>"
     exit 1
 fi
 
 max_attempts=15
 attempt=1
-port=$1
+host_port=$1
+container_port=$2
 
 echo "Creating docker container..."
 
@@ -30,7 +33,7 @@ fi
 
 echo "Creating container with name: $container_name"
 
-docker run -d --name "$container_name" -p $port:80 -v=fossbilling:/var/www/html --restart=always fossbilling/fossbilling:latest
+docker run -d --name "$container_name" -p $host_port:$container_port -v=fossbilling:/var/www/html --restart=always fossbilling/fossbilling:latest
 
 if [ $? -ne 0 ]; then
     echo "Failed to create the Docker container. Exiting."
@@ -41,7 +44,7 @@ echo "Container $container_name created successfully"
 
 
 echo "Removing old cron jobs..."
-# remove old cron job
+# remove old cron jobs
 crontab -l | grep -v "docker exec fb_standalone_" | crontab -
 
 echo "Adding new cron job..."
