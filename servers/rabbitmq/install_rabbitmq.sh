@@ -3,7 +3,7 @@
 # this script assumes you only want to run 1 rabbitmq server instance simultaneously
 
 if [ -z "$2" ]; then
-    echo "Usage: rabbitmq.sh <amqp_port> <management_port>"
+    echo "Usage: $(realpath "$0") <amqp_port> <management_port>"
     exit 1
 fi
 

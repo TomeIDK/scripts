@@ -3,7 +3,7 @@
 # this script assumes you only want to run 1 fossbilling server instance simultaneously
 
 if [ -z "$2" ]; then
-    echo "Usage: fossbilling_server_standalone.sh <host_port> <container_port>"
+    echo "Usage: $(realpath "$0") <host_port> <container_port>"
     exit 1
 fi
 
