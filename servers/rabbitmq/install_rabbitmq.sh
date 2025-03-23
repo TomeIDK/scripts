@@ -14,7 +14,7 @@ management_port=$3
 echo "Creating container with name: rabbitmq"
 
 # latest RabbitMQ 4.0.x
-$ docker run -d --hostname my-rabbit --name some-rabbit -e RABBITMQ_DEFAULT_USER=$user -e RABBITMQ_DEFAULT_PASS=$password -e RABBITMQ_DEFAULT_VHOST=attendify -v /home/user/test:/var/lib/rabbitmq -p $management_port:15672 -p 5672:5672 rabbitmq:4-management
+docker run -d --hostname my-rabbit --name some-rabbit -e RABBITMQ_DEFAULT_USER=$user -e RABBITMQ_DEFAULT_PASS=$password -e RABBITMQ_DEFAULT_VHOST=attendify -v /home/ehbstudent/volumes/rabbitmq:/var/lib/rabbitmq -p $management_port:15672 -p 5672:5672 rabbitmq:4-management
 
 
 if [ $? -ne 0 ]; then
