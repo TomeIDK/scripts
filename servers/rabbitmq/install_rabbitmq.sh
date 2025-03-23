@@ -2,18 +2,20 @@
 
 # this script assumes you only want to run 1 rabbitmq server instance simultaneously
 
-if [ -z "$2" ]; then
-    echo "Usage: $(realpath "$0") <amqp_port> <management_port>"
+if [ -z "$3" ]; then
+    echo "Usage: $(realpath "$0") <user> <password> <management_port>"
     exit 1
 fi
 
-amqp_port=$1
-management_port=$2
+user=$1
+password=$2
+management_port=$3
 
 echo "Creating container with name: rabbitmq"
 
 # latest RabbitMQ 4.0.x
-docker run -it --rm --name rabbitmq -p $amqp_port:5672 -p $management_port:15672 rabbitmq:4.0-management
+$ docker run -d --hostname my-rabbit --name some-rabbit -e RABBITMQ_DEFAULT_USER=$user -e RABBITMQ_DEFAULT_PASS=$password -e RABBITMQ_DEFAULT_VHOST=attendify -v /home/user/test:/var/lib/rabbitmq -p $management_port:15672 -p 5672:5672 rabbitmq:4-management
+
 
 if [ $? -ne 0 ]; then
     echo "Failed to create the Docker container. Exiting."
