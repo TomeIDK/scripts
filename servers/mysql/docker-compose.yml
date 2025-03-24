@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  mysql:
+    image: mysql:latest
+    container_name: mysql_server
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    ports:
+    - "30002:3306"
+    volumes:
+    - mysql_data:/var/lib/mysql
+    - /home/ehbstudent/volumes/mysql/init-scripts:/docker-entrypoint-initdb.d
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: phpmyadmin
+    restart: always
+    environment:
+      PMA_HOST: mysql
+      PMA_USER: MYSQL_ROOT_PASSWORD
+      PMA_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    ports:
+    - "30003:80"
+    depends_on:
+      - mysql
+
+volumes:
+  mysql_data:
