@@ -17,7 +17,7 @@ services:
     restart: always
     environment:
       PMA_HOST: mysql
-      PMA_USER: MYSQL_ROOT_PASSWORD
+      PMA_USER: root
       PMA_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     ports:
     - "30003:80"
