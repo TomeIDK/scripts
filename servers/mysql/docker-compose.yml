@@ -15,10 +15,11 @@ services:
     image: phpmyadmin/phpmyadmin:latest
     container_name: phpmyadmin
     restart: always
+    # Uncomment environment if you want to enable auto-login
     environment:
-      PMA_HOST: mysql
-      PMA_USER: root
-      PMA_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      # PMA_HOST: mysql
+      # PMA_USER: root
+      # PMA_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     ports:
     - "30003:80"
     depends_on:
