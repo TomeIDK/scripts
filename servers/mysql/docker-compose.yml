@@ -16,7 +16,7 @@ services:
     restart: always
     # Uncomment PMA_USER and PMA_PASSWORD if you want to enable auto-login
     environment:
-      PMA_HOST: root
+      PMA_HOST: mysql
       # PMA_USER: root
       # PMA_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     ports:
