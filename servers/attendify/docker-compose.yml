@@ -1,4 +1,6 @@
+# TODO: remove ports for security
 services:
+# TODO: test if secrets work for mysql
   mysql:
     image: mysql:latest
     container_name: mysql_server
@@ -8,21 +10,21 @@ services:
     ports:
       - "30002:3306"
     volumes:
-      - mysql_data:/var/lib/mysql
-      - /home/ehbstudent/volumes/mysql/init-scripts:/docker-entrypoint-initdb.d
+      - mysql_data:/var/lib/mysql # cannot use bind mount because it crashes mysql
+      - ./:/docker-entrypoint-initdb.d # MySQL runs all sql scripts alphabetically once => chmod 644
+# TODO: remove pma because of security issues
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
     container_name: phpmyadmin
     restart: always
-    # Uncomment PMA_USER and PMA_PASSWORD if you want to enable auto-login
     environment:
       PMA_HOST: mysql
-      # PMA_USER: root
-      # PMA_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     ports:
       - "30003:80"
     depends_on:
         - mysql
+
+# rabbitmq does not support secrets
   rabbitmq:
     image: rabbitmq:4-management
     container_name: some-rabbit
