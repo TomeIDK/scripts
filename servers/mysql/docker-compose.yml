@@ -8,7 +8,7 @@ services:
     ports:
     - "30002:3306"
     volumes:
-    - /home/ehbstudent/volumes/mysql:/var/lib/mysql
+    - mysql_data:/var/lib/mysql
     - /home/ehbstudent/volumes/mysql/init-scripts:/docker-entrypoint-initdb.d
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
