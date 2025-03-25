@@ -5,6 +5,8 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: test
+      MYSQL_PASSWORD: test
     ports:
     - "30002:3306"
     volumes:
