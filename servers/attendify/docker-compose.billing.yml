@@ -1,0 +1,8 @@
+services:
+  fossbilling:
+    image: fossbilling/fossbilling:latest
+    restart: always
+    ports:
+      - 30056:80
+    volumes:
+      - /home/ehbstudent/volumes/billing/data:/var/www/html

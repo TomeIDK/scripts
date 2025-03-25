@@ -1,3 +1,6 @@
+include:
+  - docker-compose.billing.yml
+
 # TODO: remove ports for security
 services:
 # TODO: test if secrets work for mysql
@@ -10,7 +13,7 @@ services:
     ports:
       - "30002:3306"
     volumes:
-      - mysql_data:/var/lib/mysql # cannot use bind mount because it crashes mysql
+      - /home/ehbstudent/volumes/mysql/data:/var/lib/mysql
       - ./:/docker-entrypoint-initdb.d # MySQL runs all sql scripts alphabetically once => chmod 644
 # TODO: remove pma because of security issues
   phpmyadmin:
@@ -37,7 +40,4 @@ services:
       - "30000:15672"
       - "30001:5672"
     volumes:
-      - /home/ehbstudent/volumes/rabbitmq:/var/lib/rabbitmq
-
-volumes:
-  mysql_data:
+      - /home/ehbstudent/volumes/rabbitmq/data:/var/lib/rabbitmq
