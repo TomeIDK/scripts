@@ -29,7 +29,7 @@ fi
 
 echo "Copied init.sql successfully."
 
-docker compose up -d
+docker compose up
 
 if [ $? -ne 0 ]; then
     echo "Failed to create the Docker container. Exiting."
