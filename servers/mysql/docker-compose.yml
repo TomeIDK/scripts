@@ -30,6 +30,7 @@ services:
     environment:
       RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD}
       RABBITMQ_DEFAULT_USER: attendify
+      RABBITMQ_DEFAULT_VHOST: attendify
     ports:
       - "30000:15672"
       - "30001:5672"
