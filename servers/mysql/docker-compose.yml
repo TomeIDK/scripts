@@ -6,10 +6,10 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     ports:
-    - "30002:3306"
+      - "30002:3306"
     volumes:
-    - mysql_data:/var/lib/mysql
-    - /home/ehbstudent/volumes/mysql/init-scripts:/docker-entrypoint-initdb.d
+      - mysql_data:/var/lib/mysql
+      - /home/ehbstudent/volumes/mysql/init-scripts:/docker-entrypoint-initdb.d
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
     container_name: phpmyadmin
@@ -20,9 +20,21 @@ services:
       # PMA_USER: root
       # PMA_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     ports:
-    - "30003:80"
+      - "30003:80"
     depends_on:
-      - mysql
+        - mysql
+  rabbitmq:
+    image: rabbitmq:4-management
+    container_name: some-rabbit
+    restart: always
+    environment:
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD}
+      RABBITMQ_DEFAULT_USER: attendify
+    ports:
+      - "30000:15672"
+      - "30001:5672"
+    volumes:
+      - /home/ehbstudent/volumes/rabbitmq:/var/lib/rabbitmq
 
 volumes:
   mysql_data:
