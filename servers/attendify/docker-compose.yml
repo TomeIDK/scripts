@@ -1,33 +1,11 @@
+# TODO: use reverse proxy for security
 include:
-  - docker-compose.billing.yml
-
-# TODO: remove ports for security
-services:
-# TODO: test if secrets work for mysql
-  mysql:
-    image: mysql:latest
-    container_name: mysql_server
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-    ports:
-      - "30002:3306"
-    volumes:
-      - /home/ehbstudent/volumes/mysql/data:/var/lib/mysql
-      - ./:/docker-entrypoint-initdb.d # MySQL runs all sql scripts alphabetically once => chmod 644
-# TODO: remove pma because of security issues
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin:latest
-    container_name: phpmyadmin
-    restart: always
-    environment:
-      PMA_HOST: mysql
-    ports:
-      - "30003:80"
-    depends_on:
-        - mysql
-
+  - ./billing/docker-compose.yml
+networks:
+  attendify_net:
+    external: true
 # rabbitmq does not support secrets
+services:
   rabbitmq:
     image: rabbitmq:4-management
     container_name: some-rabbit
@@ -40,4 +18,6 @@ services:
       - "30000:15672"
       - "30001:5672"
     volumes:
-      - /home/ehbstudent/volumes/rabbitmq/data:/var/lib/rabbitmq
+      - ./rabbitmq/volumes/rabbitmq/data:/var/lib/rabbitmq
+    networks:
+      - attendify_net
