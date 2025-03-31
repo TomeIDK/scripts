@@ -136,7 +136,6 @@ channel.queue_bind(queue="mailing.user", exchange="user-management", routing_key
 channel.queue_bind(queue="mailing.user", exchange="user-management", routing_key="user.delete")
 
 channel.queue_declare(queue='mailing.mail', durable=True)
-channel.queue_bind(queue="mailing.mail", exchange="user-management", routing_key="user.register")
 channel.queue_bind(queue="mailing.mail", exchange="user-management", routing_key="user.passwordGenerated")
 channel.queue_bind(queue="mailing.mail", exchange="user-management", routing_key="user.passwordReset")
 channel.queue_bind(queue="mailing.mail", exchange="event", routing_key="event.register")
