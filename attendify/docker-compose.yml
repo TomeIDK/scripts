@@ -1,10 +1,6 @@
-# TODO: use reverse proxy for security
-include:
-  - ./billing/docker-compose.yml
 networks:
   attendify_net:
-    external: true
-# rabbitmq does not support secrets
+    driver: bridge
 services:
   rabbitmq:
     image: rabbitmq:4-management
@@ -15,8 +11,8 @@ services:
       RABBITMQ_DEFAULT_USER: attendify
       RABBITMQ_DEFAULT_VHOST: attendify
     ports:
-      - "30000:15672"
-      - "30001:5672"
+      - "${RABBITMQ_PORT}:15672"
+      - "${RABBITMQ_MANAGEMENT_PORT}:5672"
     volumes:
       - ./rabbitmq/volumes/rabbitmq/data:/var/lib/rabbitmq
     networks:

@@ -1,8 +1,14 @@
+import os
+from pathlib import Path
 import pika
+from dotenv import load_dotenv
 
 print("Creating exchanges, queues and routing keys...")
 
-connection = pika.BlockingConnection(pika.ConnectionParameters('localhost', 5672, "vhost", pika.PlainCredentials("user", "password")))
+env_path = Path(__file__).resolve().parent.parent / ".env"
+load_dotenv(dotenv_path=env_path)
+
+connection = pika.BlockingConnection(pika.ConnectionParameters(os.getenv("RABBITMQ_HOST"), os.getenv("RABBITMQ_PORT"), os.getenv("RABBITMQ_VHOST"), pika.PlainCredentials(os.getenv("RABBITMQ_USER"), os.getenv("RABBITMQ_PASSWORD"))))
 channel = connection.channel()
 
 
